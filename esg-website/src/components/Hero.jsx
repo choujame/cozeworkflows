@@ -1,124 +1,149 @@
 import { motion } from 'framer-motion'
 
-const stats = [
-  { value: '60%', label: '減少碳排放' },
-  { value: '100%', label: '可回收材質' },
-  { value: '0%', label: '木漿使用' },
-]
+function Blob({ style, animate, duration }) {
+  return (
+    <motion.div
+      className="absolute rounded-full pointer-events-none"
+      style={{ filter: 'blur(90px)', ...style }}
+      animate={animate}
+      transition={{ duration, repeat: Infinity, ease: 'easeInOut', repeatType: 'mirror' }}
+    />
+  )
+}
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Marble background */}
+      {/* Base background */}
       <div
         className="absolute inset-0"
         style={{
-          background: `
-            radial-gradient(ellipse at 20% 80%, rgba(45,90,39,0.07) 0%, transparent 55%),
-            radial-gradient(ellipse at 80% 20%, rgba(45,90,39,0.05) 0%, transparent 50%),
-            radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.65) 0%, transparent 65%),
-            linear-gradient(145deg, #F9F7F5 0%, #ECE8E2 25%, #F4F1EC 50%, #FAFAF8 75%, #F6F4F1 100%)
-          `,
+          background:
+            'linear-gradient(145deg, #F9F8F6 0%, #EDEAE4 30%, #F3F1EC 55%, #FBFAF8 80%, #F7F5F2 100%)',
         }}
       />
 
-      {/* SVG marble noise texture */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.035]" xmlns="http://www.w3.org/2000/svg">
-        <filter id="marble-noise">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" />
+      {/* SVG marble texture */}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+        <filter id="hero-noise">
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
           <feColorMatrix type="saturate" values="0" />
         </filter>
-        <rect width="100%" height="100%" filter="url(#marble-noise)" />
+        <rect width="100%" height="100%" filter="url(#hero-noise)" />
       </svg>
 
-      {/* Subtle vein lines */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
-        <filter id="vein-blur">
-          <feGaussianBlur stdDeviation="2" />
-        </filter>
-        <path
-          d="M-10 200 Q 200 150, 400 300 T 800 250 T 1200 350 T 1600 200"
-          stroke="#2D5A27"
-          strokeWidth="1.5"
-          fill="none"
-          filter="url(#vein-blur)"
-        />
-        <path
-          d="M-10 500 Q 300 420, 600 580 T 1100 480 T 1600 560"
-          stroke="#2D5A27"
-          strokeWidth="1"
-          fill="none"
-          filter="url(#vein-blur)"
-        />
-        <path
-          d="M200 -10 Q 350 200, 280 500 T 320 900"
-          stroke="#6C757D"
-          strokeWidth="0.8"
-          fill="none"
-          filter="url(#vein-blur)"
-        />
+      {/* Animated gradient blobs — Shinkai-style luminous glow */}
+      <Blob
+        style={{
+          width: 900,
+          height: 900,
+          background: 'radial-gradient(circle at center, rgba(45,90,39,0.13) 0%, transparent 70%)',
+          left: '-15%',
+          top: '-20%',
+        }}
+        animate={{ x: [0, 60, 0], y: [0, 80, 0] }}
+        duration={22}
+      />
+      <Blob
+        style={{
+          width: 700,
+          height: 700,
+          background: 'radial-gradient(circle at center, rgba(130,195,220,0.09) 0%, transparent 70%)',
+          right: '-10%',
+          bottom: '10%',
+        }}
+        animate={{ x: [0, -50, 0], y: [0, -60, 0] }}
+        duration={18}
+      />
+      <Blob
+        style={{
+          width: 500,
+          height: 500,
+          background: 'radial-gradient(circle at center, rgba(45,90,39,0.07) 0%, transparent 70%)',
+          right: '5%',
+          top: '-5%',
+        }}
+        animate={{ x: [0, 40, 0], y: [0, 50, 0] }}
+        duration={14}
+      />
+
+      {/* Center light bloom */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0.7) 0%, transparent 60%)',
+        }}
+      />
+
+      {/* Marble veins */}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.035]">
+        <filter id="vblur"><feGaussianBlur stdDeviation="2.5" /></filter>
+        <path d="M-20 220Q180 160,420 320T900 260T1400 370T1800 220" stroke="#2D5A27" strokeWidth="1.8" fill="none" filter="url(#vblur)" />
+        <path d="M-20 520Q280 430,600 600T1200 500T1800 580" stroke="#2D5A27" strokeWidth="1.2" fill="none" filter="url(#vblur)" />
+        <path d="M220 -20Q380 200,300 520T340 900" stroke="#8B9EA8" strokeWidth="0.9" fill="none" filter="url(#vblur)" />
       </svg>
 
-      {/* Floating decorative circles */}
+      {/* Floating decorative rings */}
       <motion.div
-        animate={{ y: [0, -18, 0], rotate: [0, 6, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 left-[8%] w-36 h-36 rounded-full border border-forest/10 hidden lg:block"
+        animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-[22%] left-[7%] w-40 h-40 rounded-full border border-forest/10 hidden lg:block"
       />
       <motion.div
-        animate={{ y: [0, 22, 0], rotate: [0, -4, 0] }}
-        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-        className="absolute bottom-1/4 right-[10%] w-56 h-56 rounded-full border border-forest/[0.07] hidden lg:block"
+        animate={{ y: [0, 25, 0], rotate: [0, -5, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        className="absolute bottom-[20%] right-[9%] w-64 h-64 rounded-full border border-forest/[0.06] hidden lg:block"
       />
       <motion.div
-        animate={{ scale: [1, 1.06, 1], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-        className="absolute top-[35%] right-[22%] w-12 h-12 rounded-full bg-forest/[0.06] hidden lg:block"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        className="absolute bottom-[30%] left-[18%] w-8 h-8 rounded-full bg-forest/[0.08] hidden lg:block"
+        animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        className="absolute top-[38%] right-[20%] w-10 h-10 rounded-full bg-forest/[0.08] hidden lg:block"
       />
 
-      {/* Main content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
+      {/* ── Content ── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-forest/[0.08] text-forest text-xs font-light tracking-[0.2em] uppercase mb-10"
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-forest/[0.08] text-forest text-[11px] font-light tracking-[0.2em] uppercase mb-10"
         >
           <span className="w-1.5 h-1.5 bg-forest rounded-full animate-pulse" />
-          石頭紙系列 · Stone Paper Series
+          石頭紙系列 · Stone Paper Series · ESG 2024
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 44 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.5 }}
-          className="text-[3.5rem] sm:text-7xl md:text-8xl font-extralight text-gray-900 tracking-tight leading-[1.05] mb-6"
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-[3.2rem] sm:text-[4.5rem] md:text-[6rem] font-extralight text-gray-900 tracking-tighter leading-[1.04] mb-5"
         >
           無塑永續
           <br />
-          <span className="text-forest font-light">由石開始</span>
+          <span className="font-light" style={{ color: '#2D5A27' }}>由石開始</span>
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="text-base md:text-lg text-graphite font-light max-w-xl mx-auto mb-12 leading-relaxed"
+          transition={{ duration: 0.85, delay: 0.72 }}
+          className="text-sm md:text-base text-graphite font-light max-w-lg mx-auto mb-4 leading-relaxed"
         >
-          以天然礦石為原料，完全取代傳統塑料與木漿。
-          <br className="hidden sm:block" />
-          防水 · 減碳 · 堅固 · 可完全回收
+          我們將石頭轉化為纖維，將廢棄物轉化為資源。
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.85 }}
+          className="text-xs md:text-sm text-graphite/60 font-light max-w-md mx-auto mb-12 leading-relaxed tracking-wide"
+        >
+          100% 無塑 · 無木漿 · 石頭粉技術 · 可完全分解
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.9 }}
+          transition={{ duration: 0.7, delay: 1 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-20"
         >
           <a
@@ -129,41 +154,22 @@ export default function Hero() {
           </a>
           <a
             href="#contact"
-            className="px-8 py-4 border border-graphite/25 text-graphite rounded-full font-light text-sm tracking-wide hover:border-forest hover:text-forest transition-all duration-300 bg-white/40"
+            className="px-8 py-4 border border-graphite/25 text-graphite rounded-full font-light text-sm tracking-wide hover:border-forest hover:text-forest transition-all duration-300 bg-white/50 backdrop-blur-sm"
           >
-            預約諮詢
+            索取樣品
           </a>
         </motion.div>
 
-        {/* Stats row */}
+        {/* Scroll cue */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.1 }}
-          className="flex items-center justify-center gap-0 max-w-sm mx-auto"
+          animate={{ y: [0, 9, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          {stats.map((stat, i) => (
-            <div key={stat.label} className="flex-1 text-center">
-              {i > 0 && <div className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-px bg-graphite/15" />}
-              <div className="relative">
-                {i > 0 && <div className="absolute -left-px top-1/2 -translate-y-1/2 h-8 w-px bg-graphite/15" />}
-                <div className="text-2xl font-light text-forest">{stat.value}</div>
-                <div className="text-[10px] text-graphite mt-0.5 tracking-wide">{stat.label}</div>
-              </div>
-            </div>
-          ))}
+          <span className="text-[9px] text-graphite/40 tracking-[0.3em] uppercase">Scroll</span>
+          <div className="w-px h-10 bg-gradient-to-b from-graphite/25 to-transparent" />
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-[9px] text-graphite/50 tracking-[0.25em] uppercase">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-graphite/30 to-transparent" />
-      </motion.div>
     </section>
   )
 }

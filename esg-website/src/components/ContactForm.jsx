@@ -1,97 +1,91 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { MapPin, Mail, Phone, CheckCircle, ArrowRight } from 'lucide-react'
 import FadeIn from './FadeIn'
 
 const subjects = [
-  '石頭紙箱規格詢問',
-  '可分解破壞袋洽詢',
-  '環保緩衝材詢問',
+  '石頭紙箱（冷鏈 / 常溫）',
+  '可分解破壞袋（電商用）',
+  '環保緩衝材（取代保麗龍）',
+  'PGT 環保餐具',
   'ODM / OEM 客製服務',
   '代理合作洽談',
+  '企業 ESG 解決方案',
   '其他',
 ]
 
-function Field({ label, children }) {
+const sampleSizes = ['試用樣品（5 件以下）', '小批量（50 件）', '中批量（500 件）', '大批量（1000 件以上）', '不確定，需要建議']
+
+const inputClass =
+  'w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-800 font-light placeholder:text-gray-300 focus:outline-none focus:border-forest/40 focus:ring-2 focus:ring-forest/10 transition-all duration-200'
+
+function Field({ label, required, children }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs text-graphite font-light tracking-wide">{label}</label>
+      <label className="text-[11px] text-graphite font-light tracking-wide">
+        {label}
+        {required && <span className="text-forest ml-0.5">*</span>}
+      </label>
       {children}
     </div>
   )
 }
 
-const inputClass =
-  'w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-800 font-light placeholder:text-gray-300 focus:outline-none focus:border-forest/40 focus:ring-2 focus:ring-forest/10 transition-all duration-200'
-
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState({
-    name: '', company: '', email: '', phone: '', subject: '', message: '',
+    name: '', company: '', email: '', phone: '',
+    subject: '', sampleSize: '', message: '',
   })
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSubmitted(true)
-  }
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
 
   return (
     <section id="contact" className="py-28 px-6 bg-minimal-white">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* Left info column */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16 items-start">
+          {/* Info column */}
           <FadeIn direction="right">
             <div className="lg:sticky lg:top-28">
-              <p className="text-forest text-xs tracking-[0.25em] uppercase mb-3 font-light">Contact Us</p>
+              <p className="text-forest text-[10px] tracking-[0.28em] uppercase mb-3 font-light">Sample Request</p>
               <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6 leading-snug">
-                預約專業諮詢
+                索取樣品<br />
+                <span className="text-graphite/60 text-2xl">預約專業諮詢</span>
               </h2>
               <p className="text-sm text-graphite font-light leading-relaxed mb-10 max-w-sm">
-                無論您是品牌端、代理商或通路商，歡迎與我們的顧問團隊聯繫，
-                共同探索最適合您的永續包裝解決方案。
+                無論您是品牌端、代理商或通路商，歡迎申請免費樣品，
+                或與我們的 ESG 顧問團隊共同規劃最適合您的永續包裝解決方案。
               </p>
 
-              <div className="space-y-5">
+              <div className="space-y-5 mb-10">
                 {[
-                  {
-                    icon: (
-                      <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4">
-                        <path d="M10 2a6 6 0 016 6c0 4-6 10-6 10S4 12 4 8a6 6 0 016-6z" stroke="#2D5A27" strokeWidth="1.2"/>
-                        <circle cx="10" cy="8" r="2" stroke="#2D5A27" strokeWidth="1.2"/>
-                      </svg>
-                    ),
-                    label: '公司地址',
-                    value: '台灣 · 台北市',
-                  },
-                  {
-                    icon: (
-                      <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4">
-                        <path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" stroke="#2D5A27" strokeWidth="1.2"/>
-                        <path d="M3 8h14" stroke="#2D5A27" strokeWidth="1.2"/>
-                      </svg>
-                    ),
-                    label: '電子郵件',
-                    value: 'info@congyou-esg.com',
-                  },
-                  {
-                    icon: (
-                      <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4">
-                        <path d="M3 4a1 1 0 011-1h3l1.5 3.5L7 8a12 12 0 005 5l1.5-1.5L17 13v3a1 1 0 01-1 1C7 17 3 9 3 4z" stroke="#2D5A27" strokeWidth="1.2"/>
-                      </svg>
-                    ),
-                    label: '聯絡電話',
-                    value: '+886 2 XXXX-XXXX',
-                  },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-start gap-4">
+                  { Icon: MapPin, label: '公司地址', value: '台灣 · 台北市內湖區' },
+                  { Icon: Mail, label: '電子郵件', value: 'info@congyou-esg.com' },
+                  { Icon: Phone, label: '聯絡電話', value: '+886 2 XXXX-XXXX' },
+                ].map(({ Icon, label, value }) => (
+                  <div key={label} className="flex items-start gap-4">
                     <div className="w-8 h-8 rounded-lg bg-forest/[0.08] flex items-center justify-center shrink-0 mt-0.5">
-                      {item.icon}
+                      <Icon size={14} strokeWidth={1.5} className="text-forest" />
                     </div>
                     <div>
-                      <p className="text-[10px] text-graphite/70 tracking-wide font-light uppercase">{item.label}</p>
-                      <p className="text-sm text-gray-700 font-light mt-0.5">{item.value}</p>
+                      <p className="text-[10px] text-graphite/60 tracking-wide font-light uppercase">{label}</p>
+                      <p className="text-sm text-gray-700 font-light mt-0.5">{value}</p>
                     </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* USPs */}
+              <div className="space-y-3 pt-6 border-t border-gray-100">
+                {[
+                  '免費提供樣品，快遞到府',
+                  '1–2 個工作天回覆報價',
+                  '支援 ODM / OEM 訂製服務',
+                  '提供完整 SGS / FDA 檢測報告',
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <CheckCircle size={14} strokeWidth={1.5} className="text-forest shrink-0" />
+                    <span className="text-xs text-graphite font-light">{item}</span>
                   </div>
                 ))}
               </div>
@@ -105,25 +99,27 @@ export default function ContactForm() {
                 {submitted ? (
                   <motion.div
                     key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4 }}
                     className="flex flex-col items-center justify-center py-16 text-center"
                   >
-                    <div className="w-16 h-16 rounded-full bg-forest/10 flex items-center justify-center mb-5">
-                      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7">
-                        <path d="M5 12l5 5L19 7" stroke="#2D5A27" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-light text-gray-900 mb-2">諮詢已送出</h3>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
+                      className="w-16 h-16 rounded-full bg-forest/10 flex items-center justify-center mb-5"
+                    >
+                      <CheckCircle size={28} strokeWidth={1.5} className="text-forest" />
+                    </motion.div>
+                    <h3 className="text-xl font-light text-gray-900 mb-2">樣品申請已送出！</h3>
                     <p className="text-sm text-graphite font-light leading-relaxed max-w-xs">
-                      感謝您的詢問！我們的顧問將於 1-2 個工作天內與您聯繫。
+                      感謝您的申請！我們的業務顧問將於 1–2 個工作天內與您聯繫確認寄送細節。
                     </p>
                     <button
                       onClick={() => setSubmitted(false)}
                       className="mt-8 px-6 py-2.5 border border-forest/20 text-forest text-sm font-light rounded-full hover:bg-forest/5 transition-colors"
                     >
-                      再次填寫
+                      再次申請
                     </button>
                   </motion.div>
                 ) : (
@@ -131,72 +127,47 @@ export default function ContactForm() {
                     key="form"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    onSubmit={handleSubmit}
+                    onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }}
                     className="space-y-5"
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <Field label="姓名 *">
-                        <input
-                          type="text"
-                          required
-                          value={form.name}
-                          onChange={update('name')}
-                          placeholder="您的姓名"
-                          className={inputClass}
-                        />
+                      <Field label="聯絡人姓名" required>
+                        <input type="text" required value={form.name} onChange={update('name')} placeholder="您的姓名" className={inputClass} />
                       </Field>
-                      <Field label="公司名稱">
-                        <input
-                          type="text"
-                          value={form.company}
-                          onChange={update('company')}
-                          placeholder="公司 / 品牌名稱"
-                          className={inputClass}
-                        />
+                      <Field label="公司 / 品牌名稱">
+                        <input type="text" value={form.company} onChange={update('company')} placeholder="公司或品牌名稱" className={inputClass} />
                       </Field>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <Field label="電子信箱 *">
-                        <input
-                          type="email"
-                          required
-                          value={form.email}
-                          onChange={update('email')}
-                          placeholder="your@email.com"
-                          className={inputClass}
-                        />
+                      <Field label="電子信箱" required>
+                        <input type="email" required value={form.email} onChange={update('email')} placeholder="your@company.com" className={inputClass} />
                       </Field>
                       <Field label="聯絡電話">
-                        <input
-                          type="tel"
-                          value={form.phone}
-                          onChange={update('phone')}
-                          placeholder="+886 xxx-xxx-xxx"
-                          className={inputClass}
-                        />
+                        <input type="tel" value={form.phone} onChange={update('phone')} placeholder="+886 xxx-xxx-xxx" className={inputClass} />
                       </Field>
                     </div>
 
-                    <Field label="洽詢項目">
-                      <select
-                        value={form.subject}
-                        onChange={update('subject')}
-                        className={`${inputClass} appearance-none cursor-pointer`}
-                      >
-                        <option value="">請選擇洽詢項目</option>
-                        {subjects.map((s) => (
-                          <option key={s} value={s}>{s}</option>
-                        ))}
+                    <Field label="感興趣的產品" required>
+                      <select required value={form.subject} onChange={update('subject')} className={`${inputClass} cursor-pointer`}>
+                        <option value="">請選擇產品類別</option>
+                        {subjects.map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </Field>
 
-                    <Field label="洽詢內容">
+                    <Field label="樣品需求數量">
+                      <select value={form.sampleSize} onChange={update('sampleSize')} className={`${inputClass} cursor-pointer`}>
+                        <option value="">請選擇樣品數量</option>
+                        {sampleSizes.map((s) => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </Field>
+
+                    <Field label="補充說明 / 規格需求">
                       <textarea
-                        rows={5}
+                        rows={4}
                         value={form.message}
                         onChange={update('message')}
-                        placeholder="請說明您的需求，例如：年用量、目標規格、送樣需求等..."
+                        placeholder="請描述您的需求，例如：使用場景、尺寸需求、年用量、是否需要訂製印刷等..."
                         className={`${inputClass} resize-none`}
                       />
                     </Field>
@@ -205,13 +176,14 @@ export default function ContactForm() {
                       type="submit"
                       whileHover={{ scale: 1.01 }}
                       whileTap={{ scale: 0.99 }}
-                      className="w-full py-4 bg-forest text-white font-light text-sm tracking-wide rounded-xl hover:bg-forest-dark transition-all duration-200 hover:shadow-lg hover:shadow-forest/20"
+                      className="w-full py-4 bg-forest text-white font-light text-sm tracking-wide rounded-xl hover:bg-forest-dark transition-all duration-200 hover:shadow-lg hover:shadow-forest/20 flex items-center justify-center gap-2"
                     >
-                      送出諮詢申請
+                      提交樣品申請
+                      <ArrowRight size={14} strokeWidth={1.5} />
                     </motion.button>
 
-                    <p className="text-center text-[10px] text-graphite/50 font-light">
-                      送出即表示您同意我們的隱私政策。您的資訊僅作業務聯繫使用。
+                    <p className="text-center text-[10px] text-graphite/40 font-light">
+                      送出即表示您同意我們的隱私政策。您的資訊僅用於業務聯繫。
                     </p>
                   </motion.form>
                 )}

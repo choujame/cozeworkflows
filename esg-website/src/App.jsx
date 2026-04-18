@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import DataDashboard from './components/DataDashboard'
 import Features from './components/Features'
 import ProductTabs from './components/ProductTabs'
 import ComparisonTable from './components/ComparisonTable'
@@ -13,6 +14,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <DataDashboard />
         <Features />
         <ProductTabs />
         <ComparisonTable />
