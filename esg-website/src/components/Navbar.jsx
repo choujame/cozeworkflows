@@ -8,14 +8,14 @@ const NAV = {
     { label: '核心技術', href: '#features' },
     { label: '產業應用', href: '#solutions' },
     { label: '產品系列', href: '#products' },
-    { label: '認證標章', href: '#certifications' },
+    { label: 'ESG 願景', href: '#esg' },
     { label: '聯絡我們', href: '#contact' },
   ],
   en: [
     { label: 'Technology', href: '#features' },
     { label: 'Solutions', href: '#solutions' },
     { label: 'Products', href: '#products' },
-    { label: 'Certifications', href: '#certifications' },
+    { label: 'ESG Vision', href: '#esg' },
     { label: 'Contact', href: '#contact' },
   ],
 }
