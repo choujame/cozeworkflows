@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MapPin, Mail, Phone, CheckCircle, ArrowRight } from 'lucide-react'
+import { MapPin, Mail, Phone, CheckCircle, ArrowRight, Loader2 } from 'lucide-react'
 import FadeIn from './FadeIn'
 import { useLanguage } from '../context/LanguageContext'
 
@@ -37,6 +37,8 @@ const COPY = {
   },
 }
 
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw4sbJEWaGXYdKHlh0Znb-j95FO4uR2RRuy5QpQ4fG2WrQ9XnX8cxNIG0V92ixRllW67w/exec'
+
 const infoIcons = [MapPin, Mail, Phone]
 const inputClass = 'w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm text-gray-800 font-light placeholder:text-gray-300 focus:outline-none focus:border-forest/40 focus:ring-2 focus:ring-forest/10 transition-all duration-200'
 
@@ -55,8 +57,27 @@ export default function ContactForm() {
   const { lang } = useLanguage()
   const c = COPY[lang]
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', subject: '', sampleSize: '', message: '' })
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSubmitting(true)
+    try {
+      await fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
+          ...form,
+        }),
+      })
+    } catch (_) {}
+    setSubmitting(false)
+    setSubmitted(true)
+  }
 
   return (
     <section id="contact" className="py-28 px-6 bg-minimal-white">
@@ -110,7 +131,7 @@ export default function ContactForm() {
                     <button onClick={() => setSubmitted(false)} className="mt-8 px-6 py-2.5 border border-forest/20 text-forest text-sm font-light rounded-full hover:bg-forest/5 transition-colors">{c.success.again}</button>
                   </motion.div>
                 ) : (
-                  <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} onSubmit={(e) => { e.preventDefault(); setSubmitted(true) }} className="space-y-5">
+                  <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <Field label={c.fields.name} required><input type="text" required value={form.name} onChange={update('name')} placeholder={c.ph.name} className={inputClass} /></Field>
                       <Field label={c.fields.company}><input type="text" value={form.company} onChange={update('company')} placeholder={c.ph.company} className={inputClass} /></Field>
@@ -134,9 +155,12 @@ export default function ContactForm() {
                     <Field label={c.fields.message}>
                       <textarea rows={4} value={form.message} onChange={update('message')} placeholder={c.ph.message} className={`${inputClass} resize-none`} />
                     </Field>
-                    <motion.button type="submit" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }} className="w-full py-4 bg-forest text-white font-light text-sm tracking-wide rounded-xl hover:bg-forest-dark transition-all duration-200 hover:shadow-lg hover:shadow-forest/20 flex items-center justify-center gap-2">
-                      {c.fields.submit}
-                      <ArrowRight size={14} strokeWidth={1.5} />
+                    <motion.button type="submit" disabled={submitting} whileHover={{ scale: submitting ? 1 : 1.01 }} whileTap={{ scale: submitting ? 1 : 0.99 }} className="w-full py-4 bg-forest text-white font-light text-sm tracking-wide rounded-xl hover:bg-forest-dark transition-all duration-200 hover:shadow-lg hover:shadow-forest/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                      {submitting ? (
+                        <><Loader2 size={14} strokeWidth={1.5} className="animate-spin" />{lang === 'zh' ? '送出中…' : 'Sending…'}</>
+                      ) : (
+                        <>{c.fields.submit}<ArrowRight size={14} strokeWidth={1.5} /></>
+                      )}
                     </motion.button>
                     <p className="text-center text-[10px] text-graphite/40 font-light">{c.privacy}</p>
                   </motion.form>
