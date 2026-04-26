@@ -4,12 +4,14 @@ import { Package, ShoppingBag, Boxes, Utensils, ArrowRight, Shirt, Leaf } from '
 import FadeIn from './FadeIn'
 import { useLanguage } from '../context/LanguageContext'
 
+const BASE = import.meta.env.BASE_URL
+
 const PRODUCTS = {
   zh: [
     {
       id: 'box', Icon: Package, badge: '冷鏈物流',
       label: '石頭紙箱', en: 'Stone Paper Box', tagline: '冷鏈物流的最佳拍檔',
-      image: null,
+      image: `${BASE}images/products/box.jpg`,
       desc: '以礦石粉複合材料製成的全新一代環保紙箱。石頭紙在濕冷環境下仍能保持結構強度，完全解決傳統紙箱遇水即軟的痛點，是冷凍海鮮、肉品與精密電子物流的最佳選擇。',
       gradient: 'from-stone-100 via-amber-50 to-stone-200', iconColor: '#8B7355', iconOpacity: 0.25,
       specs: [
@@ -24,7 +26,7 @@ const PRODUCTS = {
     {
       id: 'security-bag', Icon: ShoppingBag, badge: '電商物流',
       label: '二次循環破壞袋', en: 'Recyclable Security Bag', tagline: '電商永續包裝新選擇',
-      image: null,
+      image: `${BASE}images/products/security-bag.jpg`,
       desc: '採用二次循環石頭紙製成的防偽破壞袋，開封後留下不可逆撕裂痕跡，確保內容物安全。讓消費者在收到商品的同時，感受到品牌的永續誠意。',
       gradient: 'from-slate-100 via-blue-50 to-slate-200', iconColor: '#4A6B8A', iconOpacity: 0.25,
       specs: [
@@ -39,7 +41,7 @@ const PRODUCTS = {
     {
       id: 'vest-bag', Icon: Shirt, badge: '零售包裝',
       label: '背心袋', en: 'Stone Paper Vest Bag', tagline: '零售業的綠色升級首選',
-      image: null,
+      image: `${BASE}images/products/vest-bag.jpg`,
       desc: '以石頭紙複合膜製成的背心袋，手感與傳統塑膠袋相近，卻完全無塑、可自然分解。適用於零售門市、超市與精品品牌，讓每一次購物都是一次環保選擇。',
       gradient: 'from-teal-50 via-cyan-50 to-teal-100', iconColor: '#0F766E', iconOpacity: 0.22,
       specs: [
@@ -54,7 +56,7 @@ const PRODUCTS = {
     {
       id: 'buffer', Icon: Boxes, badge: '工業包裝',
       label: '緩衝材', en: 'Eco Buffer Material', tagline: '取代保麗龍的完美方案',
-      image: null,
+      image: `${BASE}images/products/buffer.jpg`,
       desc: '採用石頭紙蜂巢立體結構，緩衝係數超越傳統 EPE 泡棉，重量輕 40%，100% 可回收，完美保護精密電子與脆性物品，同時讓工業包裝走向真正的循環經濟。',
       gradient: 'from-emerald-50 via-green-50 to-emerald-100', iconColor: '#2D5A27', iconOpacity: 0.2,
       specs: [
@@ -69,7 +71,7 @@ const PRODUCTS = {
     {
       id: 'tableware', Icon: Utensils, badge: '餐飲應用',
       label: '餐具', en: 'PGT Eco Tableware', tagline: '餐飲業的綠色革命',
-      image: null,
+      image: `${BASE}images/products/tableware.jpg`,
       desc: 'PGT（Plant + Geo + Technology）環保餐具，以植物纖維與礦石複合技術製成。提供與傳統塑膠同等的耐熱性與機械強度，同時在自然環境中 60 天完全降解，徹底解決一次性餐具的環境問題。',
       gradient: 'from-orange-50 via-amber-50 to-orange-100', iconColor: '#B45309', iconOpacity: 0.22,
       specs: [
@@ -84,7 +86,7 @@ const PRODUCTS = {
     {
       id: 'bio-bag', Icon: Leaf, badge: '生物分解',
       label: '環保生物袋', en: 'Eco Bio Bag', tagline: '真正零負擔的環保承諾',
-      image: null,
+      image: `${BASE}images/products/bio-bag.jpg`,
       desc: '以 PLA 植物基材料與石頭紙複合技術製成，在土壤或堆肥環境中 90 天內完全生物分解，不殘留任何微塑料。適用於家庭垃圾袋、市場購物袋、餐廳外帶袋等各類日常應用。',
       gradient: 'from-lime-50 via-green-50 to-lime-100', iconColor: '#4D7C0F', iconOpacity: 0.22,
       specs: [
@@ -101,7 +103,7 @@ const PRODUCTS = {
     {
       id: 'box', Icon: Package, badge: 'Cold Chain',
       label: 'Stone Paper Box', en: 'Stone Paper Box', tagline: 'The definitive cold chain solution',
-      image: null,
+      image: `${BASE}images/products/box.jpg`,
       desc: 'Next-generation eco-packaging made from mineral composite. Stone paper maintains structural integrity in wet and frozen environments, eliminating the weakness of traditional cardboard in cold-chain logistics.',
       gradient: 'from-stone-100 via-amber-50 to-stone-200', iconColor: '#8B7355', iconOpacity: 0.25,
       specs: [
@@ -116,7 +118,7 @@ const PRODUCTS = {
     {
       id: 'security-bag', Icon: ShoppingBag, badge: 'E-Commerce',
       label: 'Recyclable Security Bag', en: 'Recyclable Security Bag', tagline: 'Sustainable e-commerce packaging',
-      image: null,
+      image: `${BASE}images/products/security-bag.jpg`,
       desc: "Made from secondary-cycle stone paper, this tamper-evident security bag leaves an irreversible tear mark once opened. Lets customers experience your brand's sustainability commitment at unboxing.",
       gradient: 'from-slate-100 via-blue-50 to-slate-200', iconColor: '#4A6B8A', iconOpacity: 0.25,
       specs: [
@@ -131,7 +133,7 @@ const PRODUCTS = {
     {
       id: 'vest-bag', Icon: Shirt, badge: 'Retail',
       label: 'Stone Paper Vest Bag', en: 'Stone Paper Vest Bag', tagline: 'The green upgrade for retail',
-      image: null,
+      image: `${BASE}images/products/vest-bag.jpg`,
       desc: 'Made from stone paper composite film, our vest bag feels like traditional plastic yet is completely plastic-free and biodegradable. Ideal for retail stores, supermarkets, and premium brands.',
       gradient: 'from-teal-50 via-cyan-50 to-teal-100', iconColor: '#0F766E', iconOpacity: 0.22,
       specs: [
@@ -146,7 +148,7 @@ const PRODUCTS = {
     {
       id: 'buffer', Icon: Boxes, badge: 'Industrial',
       label: 'Eco Buffer Material', en: 'Eco Buffer Material', tagline: 'The premier EPS foam alternative',
-      image: null,
+      image: `${BASE}images/products/buffer.jpg`,
       desc: 'Stone paper honeycomb structure surpasses traditional EPE foam in cushioning coefficient, 40% lighter, 100% recyclable. Protects precision electronics and fragile items while advancing true circular packaging.',
       gradient: 'from-emerald-50 via-green-50 to-emerald-100', iconColor: '#2D5A27', iconOpacity: 0.2,
       specs: [
@@ -161,7 +163,7 @@ const PRODUCTS = {
     {
       id: 'tableware', Icon: Utensils, badge: 'Food Service',
       label: 'PGT Eco Tableware', en: 'PGT Eco Tableware', tagline: 'The green revolution for food service',
-      image: null,
+      image: `${BASE}images/products/tableware.jpg`,
       desc: 'PGT (Plant + Geo + Technology) tableware made from plant fiber and mineral composite. Delivers equivalent heat resistance and mechanical strength as plastics, yet fully degrades in 60 days.',
       gradient: 'from-orange-50 via-amber-50 to-orange-100', iconColor: '#B45309', iconOpacity: 0.22,
       specs: [
@@ -176,7 +178,7 @@ const PRODUCTS = {
     {
       id: 'bio-bag', Icon: Leaf, badge: 'Biodegradable',
       label: 'Eco Bio Bag', en: 'Eco Bio Bag', tagline: 'A truly zero-burden eco commitment',
-      image: null,
+      image: `${BASE}images/products/bio-bag.jpg`,
       desc: 'Made from PLA plant-based materials and stone paper composite technology, fully biodegrades in 90 days in soil or compost with zero microplastic residue. Suitable for household, restaurant, and market use.',
       gradient: 'from-lime-50 via-green-50 to-lime-100', iconColor: '#4D7C0F', iconOpacity: 0.22,
       specs: [
