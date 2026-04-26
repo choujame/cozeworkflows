@@ -67,7 +67,6 @@ export default function ContactForm() {
     try {
       await fetch(SHEET_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
