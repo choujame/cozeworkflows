@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Package, ShoppingBag, Boxes, Utensils, ArrowRight } from 'lucide-react'
+import { Package, ShoppingBag, Boxes, Utensils, ArrowRight, Shirt, Leaf } from 'lucide-react'
 import FadeIn from './FadeIn'
 import { useLanguage } from '../context/LanguageContext'
 
@@ -9,6 +9,7 @@ const PRODUCTS = {
     {
       id: 'box', Icon: Package, badge: '冷鏈物流',
       label: '石頭紙箱', en: 'Stone Paper Box', tagline: '冷鏈物流的最佳拍檔',
+      image: null,
       desc: '以礦石粉複合材料製成的全新一代環保紙箱。石頭紙在濕冷環境下仍能保持結構強度，完全解決傳統紙箱遇水即軟的痛點，是冷凍海鮮、肉品與精密電子物流的最佳選擇。',
       gradient: 'from-stone-100 via-amber-50 to-stone-200', iconColor: '#8B7355', iconOpacity: 0.25,
       specs: [
@@ -21,12 +22,13 @@ const PRODUCTS = {
       ],
     },
     {
-      id: 'bag', Icon: ShoppingBag, badge: '綠色電商',
-      label: '可分解破壞袋', en: 'Degradable Security Bag', tagline: '電商永續包裝新選擇',
-      desc: '100% 生物可分解的一次性防偽破壞袋，開封後留下不可逆撕裂痕跡，確保內容物安全。讓消費者在收到商品的同時，感受到品牌的永續誠意。',
+      id: 'security-bag', Icon: ShoppingBag, badge: '電商物流',
+      label: '二次循環破壞袋', en: 'Recyclable Security Bag', tagline: '電商永續包裝新選擇',
+      image: null,
+      desc: '採用二次循環石頭紙製成的防偽破壞袋，開封後留下不可逆撕裂痕跡，確保內容物安全。讓消費者在收到商品的同時，感受到品牌的永續誠意。',
       gradient: 'from-slate-100 via-blue-50 to-slate-200', iconColor: '#4A6B8A', iconOpacity: 0.25,
       specs: [
-        { key: '材質', value: '天然石頭紙複合膜' },
+        { key: '材質', value: '二次循環石頭紙複合膜' },
         { key: '安全特性', value: '開封後無法復原（防偽）' },
         { key: '降解時間', value: '180 天完全生物分解' },
         { key: '用途', value: '快遞包裝 · 機密文件傳遞' },
@@ -35,8 +37,24 @@ const PRODUCTS = {
       ],
     },
     {
+      id: 'vest-bag', Icon: Shirt, badge: '零售包裝',
+      label: '背心袋', en: 'Stone Paper Vest Bag', tagline: '零售業的綠色升級首選',
+      image: null,
+      desc: '以石頭紙複合膜製成的背心袋，手感與傳統塑膠袋相近，卻完全無塑、可自然分解。適用於零售門市、超市與精品品牌，讓每一次購物都是一次環保選擇。',
+      gradient: 'from-teal-50 via-cyan-50 to-teal-100', iconColor: '#0F766E', iconOpacity: 0.22,
+      specs: [
+        { key: '材質', value: '石頭紙複合膜' },
+        { key: '承重', value: '最大負荷 8 kg' },
+        { key: '防水', value: '防油污 · 防潮防濕' },
+        { key: '降解時間', value: '180 天自然環境分解' },
+        { key: '用途', value: '零售 · 超市 · 精品購物袋' },
+        { key: '訂製', value: '支援品牌印刷 · 尺寸訂製' },
+      ],
+    },
+    {
       id: 'buffer', Icon: Boxes, badge: '工業包裝',
-      label: '環保緩衝材', en: 'Eco Buffer Material', tagline: '取代保麗龍的完美方案',
+      label: '緩衝材', en: 'Eco Buffer Material', tagline: '取代保麗龍的完美方案',
+      image: null,
       desc: '採用石頭紙蜂巢立體結構，緩衝係數超越傳統 EPE 泡棉，重量輕 40%，100% 可回收，完美保護精密電子與脆性物品，同時讓工業包裝走向真正的循環經濟。',
       gradient: 'from-emerald-50 via-green-50 to-emerald-100', iconColor: '#2D5A27', iconOpacity: 0.2,
       specs: [
@@ -50,7 +68,8 @@ const PRODUCTS = {
     },
     {
       id: 'tableware', Icon: Utensils, badge: '餐飲應用',
-      label: 'PGT 環保餐具', en: 'PGT Eco Tableware', tagline: '餐飲業的綠色革命',
+      label: '餐具', en: 'PGT Eco Tableware', tagline: '餐飲業的綠色革命',
+      image: null,
       desc: 'PGT（Plant + Geo + Technology）環保餐具，以植物纖維與礦石複合技術製成。提供與傳統塑膠同等的耐熱性與機械強度，同時在自然環境中 60 天完全降解，徹底解決一次性餐具的環境問題。',
       gradient: 'from-orange-50 via-amber-50 to-orange-100', iconColor: '#B45309', iconOpacity: 0.22,
       specs: [
@@ -62,11 +81,27 @@ const PRODUCTS = {
         { key: '訂製服務', value: '支援品牌印刷與 ODM' },
       ],
     },
+    {
+      id: 'bio-bag', Icon: Leaf, badge: '生物分解',
+      label: '環保生物袋', en: 'Eco Bio Bag', tagline: '真正零負擔的環保承諾',
+      image: null,
+      desc: '以 PLA 植物基材料與石頭紙複合技術製成，在土壤或堆肥環境中 90 天內完全生物分解，不殘留任何微塑料。適用於家庭垃圾袋、市場購物袋、餐廳外帶袋等各類日常應用。',
+      gradient: 'from-lime-50 via-green-50 to-lime-100', iconColor: '#4D7C0F', iconOpacity: 0.22,
+      specs: [
+        { key: '材質', value: 'PLA + 石頭紙複合膜' },
+        { key: '降解時間', value: '90 天完全生物分解' },
+        { key: '用途', value: '購物袋 · 垃圾袋 · 堆肥袋' },
+        { key: '無毒', value: '不含塑化劑 · 無重金屬' },
+        { key: '認證', value: 'EN13432 · ASTM D6400' },
+        { key: '應用', value: '家庭 · 餐廳 · 超市 · 市集' },
+      ],
+    },
   ],
   en: [
     {
       id: 'box', Icon: Package, badge: 'Cold Chain',
       label: 'Stone Paper Box', en: 'Stone Paper Box', tagline: 'The definitive cold chain solution',
+      image: null,
       desc: 'Next-generation eco-packaging made from mineral composite. Stone paper maintains structural integrity in wet and frozen environments, eliminating the weakness of traditional cardboard in cold-chain logistics.',
       gradient: 'from-stone-100 via-amber-50 to-stone-200', iconColor: '#8B7355', iconOpacity: 0.25,
       specs: [
@@ -79,12 +114,13 @@ const PRODUCTS = {
       ],
     },
     {
-      id: 'bag', Icon: ShoppingBag, badge: 'Green E-Com',
-      label: 'Degradable Security Bag', en: 'Degradable Security Bag', tagline: 'Sustainable e-commerce packaging',
-      desc: '100% biodegradable one-time security bag. Once opened, irreversible tear marks appear to ensure content safety. Lets customers experience your brand\'s sustainability commitment at unboxing.',
+      id: 'security-bag', Icon: ShoppingBag, badge: 'E-Commerce',
+      label: 'Recyclable Security Bag', en: 'Recyclable Security Bag', tagline: 'Sustainable e-commerce packaging',
+      image: null,
+      desc: "Made from secondary-cycle stone paper, this tamper-evident security bag leaves an irreversible tear mark once opened. Lets customers experience your brand's sustainability commitment at unboxing.",
       gradient: 'from-slate-100 via-blue-50 to-slate-200', iconColor: '#4A6B8A', iconOpacity: 0.25,
       specs: [
-        { key: 'Material', value: 'Natural Stone Paper Composite Film' },
+        { key: 'Material', value: 'Recycled Stone Paper Composite Film' },
         { key: 'Security', value: 'Tamper-evident, irreversible opening' },
         { key: 'Degradation', value: 'Full biodegradation in 180 days' },
         { key: 'Use Case', value: 'Express packaging · Confidential docs' },
@@ -93,8 +129,24 @@ const PRODUCTS = {
       ],
     },
     {
+      id: 'vest-bag', Icon: Shirt, badge: 'Retail',
+      label: 'Stone Paper Vest Bag', en: 'Stone Paper Vest Bag', tagline: 'The green upgrade for retail',
+      image: null,
+      desc: 'Made from stone paper composite film, our vest bag feels like traditional plastic yet is completely plastic-free and biodegradable. Ideal for retail stores, supermarkets, and premium brands.',
+      gradient: 'from-teal-50 via-cyan-50 to-teal-100', iconColor: '#0F766E', iconOpacity: 0.22,
+      specs: [
+        { key: 'Material', value: 'Stone Paper Composite Film' },
+        { key: 'Load Capacity', value: 'Up to 8 kg' },
+        { key: 'Protection', value: 'Oil & moisture resistant' },
+        { key: 'Degradation', value: 'Natural degradation in 180 days' },
+        { key: 'Use Case', value: 'Retail · Supermarket · Boutique' },
+        { key: 'Custom', value: 'Brand printing & custom sizing' },
+      ],
+    },
+    {
       id: 'buffer', Icon: Boxes, badge: 'Industrial',
       label: 'Eco Buffer Material', en: 'Eco Buffer Material', tagline: 'The premier EPS foam alternative',
+      image: null,
       desc: 'Stone paper honeycomb structure surpasses traditional EPE foam in cushioning coefficient, 40% lighter, 100% recyclable. Protects precision electronics and fragile items while advancing true circular packaging.',
       gradient: 'from-emerald-50 via-green-50 to-emerald-100', iconColor: '#2D5A27', iconOpacity: 0.2,
       specs: [
@@ -109,6 +161,7 @@ const PRODUCTS = {
     {
       id: 'tableware', Icon: Utensils, badge: 'Food Service',
       label: 'PGT Eco Tableware', en: 'PGT Eco Tableware', tagline: 'The green revolution for food service',
+      image: null,
       desc: 'PGT (Plant + Geo + Technology) tableware made from plant fiber and mineral composite. Delivers equivalent heat resistance and mechanical strength as plastics, yet fully degrades in 60 days.',
       gradient: 'from-orange-50 via-amber-50 to-orange-100', iconColor: '#B45309', iconOpacity: 0.22,
       specs: [
@@ -120,15 +173,37 @@ const PRODUCTS = {
         { key: 'Custom', value: 'Brand printing & ODM available' },
       ],
     },
+    {
+      id: 'bio-bag', Icon: Leaf, badge: 'Biodegradable',
+      label: 'Eco Bio Bag', en: 'Eco Bio Bag', tagline: 'A truly zero-burden eco commitment',
+      image: null,
+      desc: 'Made from PLA plant-based materials and stone paper composite technology, fully biodegrades in 90 days in soil or compost with zero microplastic residue. Suitable for household, restaurant, and market use.',
+      gradient: 'from-lime-50 via-green-50 to-lime-100', iconColor: '#4D7C0F', iconOpacity: 0.22,
+      specs: [
+        { key: 'Material', value: 'PLA + Stone Paper Composite Film' },
+        { key: 'Degradation', value: 'Full biodegradation in 90 days' },
+        { key: 'Use Case', value: 'Shopping · Trash · Compost bags' },
+        { key: 'Non-toxic', value: 'Plasticizer-free · No heavy metals' },
+        { key: 'Certifications', value: 'EN13432 · ASTM D6400' },
+        { key: 'Applications', value: 'Home · Restaurant · Supermarket · Market' },
+      ],
+    },
   ],
 }
 
 const COPY = {
-  zh: { eyebrow: 'Product Series', title: '互動式產品系列', subtitle: '從包裝到餐具，全系列石頭紙產品，為您的供應鏈注入永續動能。', cta: '索取樣品 / 規格書' },
+  zh: { eyebrow: 'Product Series', title: '產品系列', subtitle: '從包裝到餐具，全系列石頭紙產品，為您的供應鏈注入永續動能。', cta: '索取樣品 / 規格書' },
   en: { eyebrow: 'Product Series', title: 'Product Series', subtitle: 'From packaging to tableware — our full stone paper line powers your sustainable supply chain.', cta: 'Request Sample / Spec Sheet' },
 }
 
 function ProductVisual({ product }) {
+  if (product.image) {
+    return (
+      <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
+        <img src={product.image} alt={product.label} className="w-full h-full object-cover" />
+      </div>
+    )
+  }
   return (
     <div className={`w-full aspect-[4/3] rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center relative overflow-hidden`}>
       <svg className="absolute inset-0 w-full h-full opacity-[0.02] pointer-events-none">
@@ -139,7 +214,7 @@ function ProductVisual({ product }) {
       <div className="absolute -bottom-8 -left-8 w-64 h-64 rounded-full border" style={{ borderColor: product.iconColor, opacity: 0.07 }} />
       <div className="relative z-10 flex flex-col items-center gap-3">
         <product.Icon size={96} strokeWidth={0.7} style={{ color: product.iconColor, opacity: product.iconOpacity }} />
-        <p className="text-[11px] font-light" style={{ color: product.iconColor, opacity: 0.4 }}>Product Image Placeholder</p>
+        <p className="text-[11px] font-light" style={{ color: product.iconColor, opacity: 0.4 }}>產品圖片</p>
       </div>
     </div>
   )
@@ -163,12 +238,12 @@ export default function ProductTabs() {
 
         {/* Tab bar */}
         <FadeIn delay={0.1}>
-          <div className="flex overflow-x-auto scrollbar-hide gap-1 p-1.5 bg-white rounded-2xl shadow-sm border border-gray-100 mb-10 max-w-2xl mx-auto">
+          <div className="flex overflow-x-auto scrollbar-hide gap-1 p-1.5 bg-white rounded-2xl shadow-sm border border-gray-100 mb-10 max-w-3xl mx-auto">
             {products.map((p, i) => (
               <button
                 key={p.id}
                 onClick={() => setActive(i)}
-                className="flex-1 min-w-[90px] relative py-2.5 px-2 rounded-xl text-[11px] font-light tracking-wide transition-colors duration-200 whitespace-nowrap"
+                className="flex-1 min-w-[80px] relative py-2.5 px-2 rounded-xl text-[11px] font-light tracking-wide transition-colors duration-200 whitespace-nowrap"
                 style={{ color: active === i ? '#2D5A27' : '#6C757D' }}
               >
                 {active === i && (
