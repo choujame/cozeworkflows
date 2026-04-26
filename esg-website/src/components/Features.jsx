@@ -104,9 +104,47 @@ export default function Features() {
   const c = COPY[lang]
 
   return (
-    <section id="features" className="py-28 px-6 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section id="features" className="py-28 px-6 bg-[#F7F4EF] relative overflow-hidden">
+
+      {/* Seigaiha (Japanese overlapping circles) pattern background */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" opacity="0.042">
+        <defs>
+          <pattern id="seigaiha" x="0" y="0" width="80" height="52" patternUnits="userSpaceOnUse">
+            <circle cx="40" cy="52" r="38" fill="none" stroke="#2D5A27" strokeWidth="1.2" />
+            <circle cx="80" cy="52" r="38" fill="none" stroke="#2D5A27" strokeWidth="1.2" />
+            <circle cx="0"  cy="52" r="38" fill="none" stroke="#2D5A27" strokeWidth="1.2" />
+            <circle cx="40" cy="0"  r="38" fill="none" stroke="#2D5A27" strokeWidth="0.5" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#seigaiha)" />
+      </svg>
+
+      {/* Ghost "技" kanji */}
+      <div className="absolute pointer-events-none select-none overflow-hidden hidden lg:flex items-center" style={{ inset: 0 }}>
+        <span style={{
+          fontSize: 'clamp(320px,40vw,620px)',
+          fontWeight: 300,
+          color: '#2D5A27',
+          opacity: 0.022,
+          lineHeight: 1,
+          userSelect: 'none',
+          transform: 'translateX(-8%) translateY(10%)',
+        }}>
+          技
+        </span>
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         <FadeIn className="text-center mb-16">
+          {/* Ink brush accent */}
+          <div className="flex justify-center mb-4">
+            <svg width="110" height="14" viewBox="0 0 110 14" fill="none" opacity="0.22">
+              <path d="M4 7 C22 3,38 11,58 6 C78 1,92 9,106 5"
+                stroke="#2D5A27" strokeWidth="3.5" strokeLinecap="round" />
+              <path d="M12 9 C28 12,46 5,64 9 C82 13,96 6,106 8"
+                stroke="#2D5A27" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+            </svg>
+          </div>
           <p className="text-forest text-[10px] tracking-[0.28em] uppercase mb-3 font-light">{c.eyebrow}</p>
           <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">{c.title}</h2>
           <p className="text-graphite font-light max-w-md mx-auto text-sm leading-relaxed">{c.subtitle}</p>
@@ -115,8 +153,20 @@ export default function Features() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((feat, i) => (
             <FadeIn key={feat.title} delay={i * 0.1} direction="up">
-              <div className="group h-full p-7 rounded-2xl border border-gray-100 hover:border-forest/20 hover:shadow-xl hover:shadow-forest/[0.07] transition-all duration-400 bg-white">
-                <div className="w-12 h-12 rounded-xl bg-forest/[0.07] flex items-center justify-center mb-5 group-hover:bg-forest/[0.12] transition-colors">
+              <div className="group h-full relative p-7 rounded-2xl bg-white border border-gray-100
+                border-l-[3px] border-l-forest/30
+                hover:border-l-forest/60 hover:shadow-xl hover:shadow-forest/[0.08]
+                transition-all duration-300 overflow-hidden">
+
+                {/* Ghost card number */}
+                <span
+                  className="absolute top-1 right-3 font-light text-forest pointer-events-none select-none leading-none"
+                  style={{ fontSize: 88, opacity: 0.045 }}
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+
+                <div className="w-12 h-12 rounded-xl bg-forest/[0.09] flex items-center justify-center mb-5 group-hover:bg-forest/[0.16] transition-colors">
                   <feat.Icon className="w-5 h-5 text-forest" strokeWidth={1.5} />
                 </div>
                 <p className="text-[9px] text-graphite/55 tracking-[0.22em] uppercase mb-1.5 font-light">{feat.en}</p>
@@ -124,7 +174,7 @@ export default function Features() {
                 <p className="text-xs text-graphite font-light leading-relaxed mb-4">{feat.desc}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {feat.tags.map((tag) => (
-                    <span key={tag} className="px-2.5 py-1 rounded-full bg-forest/[0.07] text-forest text-[10px] font-light tracking-wide">
+                    <span key={tag} className="px-2.5 py-1 rounded-full bg-forest/[0.08] text-forest text-[10px] font-light tracking-wide">
                       {tag}
                     </span>
                   ))}
