@@ -1,4 +1,4 @@
-import { Truck, ShoppingCart, Factory, ArrowRight } from 'lucide-react'
+import { Truck, ShoppingCart, Factory, Store, UtensilsCrossed, Leaf, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import FadeIn from './FadeIn'
 import { useLanguage } from '../context/LanguageContext'
@@ -40,7 +40,40 @@ const SOLUTIONS = {
         en: 'Industrial Buffering',
         desc: '取代保麗龍的最佳環保方案。石頭紙蜂巢緩衝材提供卓越的避震與緩衝屬性，重量輕 40%，100% 可回收，協助製造業走向真正的循環經濟包裝模式。',
         tags: ['精密儀器', '電子產品', '藝術品運輸', '取代保麗龍'],
-        product: '環保緩衝材',
+        product: '緩衝材',
+        productHref: '#products',
+      },
+      {
+        Icon: Store,
+        color: '#0369A1',
+        gradient: 'from-sky-50 via-blue-50 to-indigo-50',
+        title: '零售超市',
+        en: 'Retail & Supermarket',
+        desc: '環保背心袋符合台灣限塑法規，讓連鎖超市與零售通路輕鬆達成合規同時提升品牌形象。可生物分解配方取代傳統 PE 袋，消費者買單後包裝自然回歸土地，不留白色污染。',
+        tags: ['超市收銀袋', '連鎖通路', '限塑合規', '品牌環保形象'],
+        product: '背心袋',
+        productHref: '#products',
+      },
+      {
+        Icon: UtensilsCrossed,
+        color: '#DC2626',
+        gradient: 'from-red-50 via-rose-50 to-orange-50',
+        title: '餐飲外帶',
+        en: 'Food & Beverage',
+        desc: 'PGT 環保餐具耐熱 120°C 可微波，即使受損也不釋放三聚氰胺，重量比不鏽鋼輕，是企業餐廳、外燴活動與外帶品牌兼顧食安與永續的最佳選擇。通過 FDA 食品接觸認證。',
+        tags: ['外帶餐盒', '企業餐廳', '活動外燴', '食品安全'],
+        product: 'PGT餐具',
+        productHref: '#products',
+      },
+      {
+        Icon: Leaf,
+        color: '#16A34A',
+        gradient: 'from-green-50 via-emerald-50 to-teal-50',
+        title: '有機農業',
+        en: 'Organic & Fresh Produce',
+        desc: '環保生物袋耐熱達 120°C，適合農產品蒸煮包裝場景。180 天內完全分解，無微塑料殘留，是有機農產、生鮮市集與廚餘收納的理想方案，助農業品牌落實從產地到餐桌的全程永續。',
+        tags: ['有機農產', '生鮮包裝', '廚餘袋', '市集採購'],
+        product: '環保生物袋',
         productHref: '#products',
       },
     ],
@@ -82,7 +115,40 @@ const SOLUTIONS = {
         en: 'Industrial Buffering',
         desc: 'The premier eco-alternative to polystyrene foam. Stone paper honeycomb buffers provide superior shock absorption at 40% lighter weight, 100% recyclable — enabling true circular packaging.',
         tags: ['Precision Instruments', 'Electronics', 'Art Transport', 'EPS Replacement'],
-        product: 'Eco Buffer Material',
+        product: 'Buffer Material',
+        productHref: '#products',
+      },
+      {
+        Icon: Store,
+        color: '#0369A1',
+        gradient: 'from-sky-50 via-blue-50 to-indigo-50',
+        title: 'Retail & Supermarket',
+        en: 'Retail & Supermarket',
+        desc: 'Eco vest bags comply with plastic-reduction regulations, helping retail chains and supermarkets stay compliant while elevating brand image. Biodegradable formulation replaces PE bags — packaging that returns to the earth, leaving no white pollution.',
+        tags: ['Checkout Bags', 'Retail Chains', 'Plastic-ban Compliant', 'Brand ESG'],
+        product: 'Vest Bag',
+        productHref: '#products',
+      },
+      {
+        Icon: UtensilsCrossed,
+        color: '#DC2626',
+        gradient: 'from-red-50 via-rose-50 to-orange-50',
+        title: 'Food & Beverage',
+        en: 'Food & Beverage',
+        desc: 'PGT tableware withstands 120°C and is microwave-safe. Unlike melamine, it releases zero melamine toxin even when damaged. Lighter than stainless steel — the ideal choice for corporate cafeterias, catering events, and takeaway brands. FDA food-contact certified.',
+        tags: ['Takeaway Boxes', 'Corporate Cafeteria', 'Catering', 'Food Safety'],
+        product: 'PGT Tableware',
+        productHref: '#products',
+      },
+      {
+        Icon: Leaf,
+        color: '#16A34A',
+        gradient: 'from-green-50 via-emerald-50 to-teal-50',
+        title: 'Organic & Fresh Produce',
+        en: 'Organic & Fresh Produce',
+        desc: 'Eco bio bags withstand up to 120°C, supporting steaming and cooking applications. Fully biodegrades in 180 days with zero microplastic residue — ideal for organic produce, fresh markets, and kitchen waste, enabling farm-to-table sustainability.',
+        tags: ['Organic Produce', 'Fresh Packaging', 'Kitchen Waste', 'Farm Markets'],
+        product: 'Eco Bio Bag',
         productHref: '#products',
       },
     ],
@@ -103,7 +169,7 @@ export default function IndustrySolutions() {
           <p className="text-graphite font-light max-w-lg mx-auto text-sm leading-relaxed">{s.subtitle}</p>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {s.items.map((item, i) => (
             <FadeIn key={item.title} delay={i * 0.12}>
               <div className="group h-full rounded-2xl overflow-hidden border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-400 bg-white flex flex-col">

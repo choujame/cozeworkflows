@@ -128,29 +128,37 @@ const FAQS = {
     tableware: [
       {
         q: 'PGT 餐具是什麼材質？',
-        a: 'PGT（Plant-based Green Tableware）以植物纖維為基底，結合專利配方製成，不含塑料成分。外觀質感佳，可替代傳統一次性塑膠或紙製餐具。',
+        a: 'PGT（Plant-based Green Tableware）以植物纖維為基底，結合專利配方製成，不含塑料成分。外觀質感佳，可替代傳統一次性塑膠、美耐皿或不鏽鋼餐具。',
       },
       {
         q: '耐熱溫度是多少？可以微波嗎？',
         a: 'PGT 餐具耐熱可達 120°C，可安全微波使用，也耐低溫至 -20°C，適合冷熱食皆可盛裝。不建議直接接觸明火或放入烤箱。',
       },
       {
+        q: '和美耐皿（Melamine）餐具有什麼不同？',
+        a: '美耐皿餐具在受損、刮傷或高溫使用時，可能釋放三聚氰胺（Melamine）有毒物質，對人體造成危害。PGT 餐具即使受損也不含三聚氰胺，不會釋放有害物質，食用安全性更高。',
+      },
+      {
+        q: '重量與不鏽鋼餐具相比如何？',
+        a: 'PGT 餐具重量比不鏽鋼輕，大幅降低外燴活動、團膳配送的搬運與運輸成本，同時兼顧耐用性與食安要求，是取代不鏽鋼的輕量環保選項。',
+      },
+      {
         q: '是否通過食品安全認證？',
         a: '通過美國 FDA 食品接觸材料認證及 SGS 食安檢測，不含螢光增白劑、塑化劑及重金屬，可安全用於直接接觸食物的包裝與餐具。',
       },
       {
-        q: '使用後如何處置？',
-        a: '在堆肥環境下可於 180 天內完全分解，也可進入一般垃圾焚燒流程，不產生有害氣體。部分款式支援清洗後重複使用。',
-      },
-      {
         q: '適合哪些餐飲場景？',
-        a: '適用於外帶餐盒、便當盒、飲料杯、餐盤等一次性餐具需求，特別適合強調品牌永續形象的餐飲品牌、企業餐廳及活動外燴使用。',
+        a: '適用於外帶餐盒、便當盒、飲料杯、餐盤等需求，特別適合強調品牌永續形象的餐飲業者、企業餐廳及活動外燴使用。',
       },
     ],
     biobag: [
       {
         q: '環保生物袋和一般塑膠袋有什麼不同？',
         a: '環保生物袋採用 PLA（聚乳酸）或 PBAT 等生物基材料製成，外觀與一般塑膠袋相同，但在特定環境條件下可完全分解，不留殘留物，大幅減少對環境的長期影響。',
+      },
+      {
+        q: '耐熱溫度是多少？可以用於蒸煮包裝嗎？',
+        a: '環保生物袋耐熱可達 120°C，適合農產品蒸煮、熱食包裝及需要高溫處理的包裝場景，兼顧食品安全與環保需求。',
       },
       {
         q: '在什麼條件下才會分解？',
@@ -162,7 +170,7 @@ const FAQS = {
       },
       {
         q: '適合哪些使用場景？',
-        a: '廣泛適用於超市購物袋、有機農產品包裝、廚餘垃圾袋、外帶提袋等。特別適合需要符合限塑規範或主打環保形象的品牌與通路。',
+        a: '廣泛適用於超市購物袋、有機農產品包裝、蒸煮食品袋、廚餘垃圾袋、外帶提袋等。特別適合需要符合限塑規範或主打環保形象的品牌與通路。',
       },
       {
         q: '可以印刷品牌 LOGO 嗎？',
@@ -272,19 +280,23 @@ const FAQS = {
     tableware: [
       {
         q: 'What is PGT tableware made from?',
-        a: 'PGT (Plant-based Green Tableware) uses plant fiber as its base with a proprietary formulation — plastic-free. It has a premium look and feel, serving as a drop-in replacement for conventional single-use plastic or paper tableware.',
+        a: 'PGT (Plant-based Green Tableware) uses plant fiber as its base with a proprietary formulation — plastic-free. It has a premium look and feel, replacing conventional single-use plastic, melamine, or stainless steel tableware.',
       },
       {
         q: 'What is the heat resistance? Is it microwave-safe?',
         a: 'PGT tableware is heat-resistant to 120°C and microwave-safe. It also withstands temperatures down to -20°C, making it suitable for both hot and cold food. Not recommended for direct flame or oven use.',
       },
       {
-        q: 'Does it have food safety certification?',
-        a: 'Yes. Certified under US FDA food-contact material standards and SGS food safety testing. Free of fluorescent brighteners, plasticizers, and heavy metals — safe for direct food contact.',
+        q: 'How is it different from melamine tableware?',
+        a: 'Melamine tableware can release melamine toxins when scratched, damaged, or used at high temperatures — posing health risks. PGT tableware contains no melamine and releases no harmful substances even when damaged, making it a significantly safer choice.',
       },
       {
-        q: 'How should it be disposed of after use?',
-        a: 'Fully decomposes in composting conditions within 180 days. Can also be incinerated in standard waste streams with no harmful emissions. Select variants support washing and reuse.',
+        q: 'How does the weight compare to stainless steel?',
+        a: 'PGT tableware is lighter than stainless steel, significantly reducing handling and transport costs for catering events and institutional food service — without compromising durability or food safety.',
+      },
+      {
+        q: 'Does it have food safety certification?',
+        a: 'Yes. Certified under US FDA food-contact material standards and SGS food safety testing. Free of fluorescent brighteners, plasticizers, and heavy metals — safe for direct food contact.',
       },
       {
         q: 'What food service scenarios is it designed for?',
@@ -297,6 +309,10 @@ const FAQS = {
         a: 'Eco bio bags are made from bio-based materials such as PLA (polylactic acid) or PBAT. They look and function like conventional plastic bags but fully decompose under the right conditions, leaving no residue — significantly reducing long-term environmental impact.',
       },
       {
+        q: 'What is the heat resistance? Can it be used for steaming?',
+        a: 'Eco bio bags are heat-resistant up to 120°C, making them suitable for steaming, hot food packaging, and applications requiring high-temperature processing — combining food safety with environmental responsibility.',
+      },
+      {
         q: 'What conditions are required for decomposition?',
         a: 'In an industrial composting environment (temperature ≥ 55°C with adequate moisture and microorganisms), full decomposition takes approximately 90–180 days. Natural environment decomposition is slower; pairing with local organic waste collection is recommended.',
       },
@@ -306,7 +322,7 @@ const FAQS = {
       },
       {
         q: 'What are the main use cases?',
-        a: 'Widely used for supermarket shopping bags, organic produce packaging, kitchen waste bin liners, and takeaway carry bags. Especially suited for brands and retailers targeting compliance with plastic reduction regulations or sustainability positioning.',
+        a: 'Widely used for supermarket shopping bags, organic produce packaging, steaming pouches, kitchen waste bin liners, and takeaway carry bags. Especially suited for brands targeting plastic-reduction compliance or sustainability positioning.',
       },
       {
         q: 'Can I print my brand logo on it?',
