@@ -77,7 +77,7 @@ export default function ContactForm() {
           company: form.company,
           email: form.email,
           phone: form.phone,
-          items: filledItems.map(it => `${it.product}${it.qty ? ` × ${it.qty} 件` : ''}`).join(' | '),
+          items: filledItems.map(it => ({ product: it.product, qty: it.qty || '' })),
           message: form.message,
         }),
       })
