@@ -35,6 +35,8 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: choujame/choujame.github.io
+          publish_branch: main
           publish_dir: ./esg-website/dist
           commit_message: 'deploy: CongYou ESG website'
