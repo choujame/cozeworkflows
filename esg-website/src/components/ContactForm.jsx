@@ -82,6 +82,13 @@ export default function ContactForm() {
         }),
       })
     } catch (_) {}
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'form_submission', {
+        event_category: 'lead',
+        event_label: filledItems.map(it => it.product).join(', '),
+        value: filledItems.length,
+      })
+    }
     setSubmitting(false)
     setSubmitted(true)
   }
