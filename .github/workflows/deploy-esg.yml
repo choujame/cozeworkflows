@@ -1,0 +1,42 @@
+name: 🌿 Deploy CongYou ESG Website
+
+on:
+  push:
+    branches:
+      - claude/build-esg-website-a30rS
+    paths:
+      - 'esg-website/**'
+      - '.github/workflows/deploy-esg.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: esg-website
+        run: npm install
+
+      - name: Build
+        working-directory: esg-website
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: choujame/choujame.github.io
+          publish_branch: main
+          publish_dir: ./esg-website/dist
+          commit_message: 'deploy: CongYou ESG website'
