@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import DataDashboard from './components/DataDashboard'
 import IndustrySolutions from './components/IndustrySolutions'
+import DeliveryRider from './components/DeliveryRider'
 import Features from './components/Features'
 import ProductTabs from './components/ProductTabs'
 import ComparisonTable from './components/ComparisonTable'
@@ -24,6 +25,7 @@ export default function App() {
           <Hero />
           <DataDashboard />
           <IndustrySolutions />
+          <DeliveryRider />
           <Features />
           <ProductTabs />
           <ComparisonTable />
